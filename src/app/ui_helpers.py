@@ -80,9 +80,9 @@ def render_sidebar(config: dict) -> None:
         st.markdown("---")
         st.markdown("### 🔗 Resources")
         st.markdown(
-            "[📂 GitHub Repository](https://github.com/yourusername/ai-resume-analyzer)\n\n"
-            "[📄 Documentation](https://github.com/yourusername/ai-resume-analyzer/blob/main/docs/Architecture.md)\n\n"
-            "[🐛 Report an Issue](https://github.com/yourusername/ai-resume-analyzer/issues)"
+            "[📂 GitHub Repository](https://github.com/027abhishekojha/ai-resume-analyzer)\n\n"
+            "[📄 Documentation](https://github.com/027abhishekojha/ai-resume-analyzer/blob/main/docs/Architecture.md)\n\n"
+            "[🐛 Report an Issue](https://github.com/027abhishekojha/ai-resume-analyzer/issues)"
         )
 
         st.markdown("---")
