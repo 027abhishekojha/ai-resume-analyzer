@@ -1,0 +1,79 @@
+version: 1
+disable_existing_loggers: false
+
+formatters:
+  standard:
+    format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+  detailed:
+    format: "%(asctime)s | %(levelname)-8s | %(name)s:%(funcName)s:%(lineno)d | %(message)s"
+    datefmt: "%Y-%m-%d %H:%M:%S"
+
+  simple:
+    format: "%(levelname)-8s | %(message)s"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    level: INFO
+    formatter: standard
+    stream: ext://sys.stdout
+
+  file:
+    class: logging.handlers.RotatingFileHandler
+    level: DEBUG
+    formatter: detailed
+    filename: logs/app.log
+    maxBytes: 10485760  # 10 MB
+    backupCount: 5
+    encoding: utf-8
+
+  error_file:
+    class: logging.handlers.RotatingFileHandler
+    level: ERROR
+    formatter: detailed
+    filename: logs/errors.log
+    maxBytes: 10485760  # 10 MB
+    backupCount: 5
+    encoding: utf-8
+
+loggers:
+  src.app:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+  src.preprocessing:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  src.feature_engineering:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  src.inference:
+    level: INFO
+    handlers: [console, file, error_file]
+    propagate: false
+
+  src.training:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+  src.evaluation:
+    level: INFO
+    handlers: [console, file]
+    propagate: false
+
+  src.utils:
+    level: DEBUG
+    handlers: [console, file]
+    propagate: false
+
+root:
+  level: WARNING
+  handlers: [console, file, error_file]

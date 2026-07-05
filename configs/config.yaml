@@ -1,0 +1,108 @@
+# AI Resume Analyzer — Application Configuration
+# All runtime parameters are centralized here.
+# Sensitive values (API keys, paths with credentials) MUST go in .env, NOT here.
+
+app:
+  title: "AI Resume Analyzer"
+  description: "AI-powered ATS Resume Screening & Job Matching"
+  version: "0.1.0"
+  port: 8501
+  debug: false
+
+# ─── PDF Extraction ───────────────────────────────────────────────────────────
+pdf:
+  # Primary extractor: "pdfplumber" | "pypdf2"
+  primary_extractor: "pdfplumber"
+  fallback_extractor: "pypdf2"
+  # Maximum file size in MB
+  max_file_size_mb: 10
+
+# ─── NLP Preprocessing ────────────────────────────────────────────────────────
+preprocessing:
+  language: "english"
+  # Remove stopwords before vectorization
+  remove_stopwords: true
+  # Apply lemmatization (slower but more accurate than stemming)
+  apply_lemmatization: true
+  # Apply stemming (alternative to lemmatization, faster)
+  apply_stemming: false
+  # Minimum token length to keep
+  min_token_length: 2
+  # Characters to strip during cleaning
+  strip_chars: "!@#$%^&*()_+-=[]{}|;':\",./<>?"
+
+# ─── Feature Engineering (TF-IDF) ────────────────────────────────────────────
+feature_engineering:
+  # Maximum number of features for TF-IDF vocabulary
+  max_features: 5000
+  # N-gram range: [min_n, max_n]
+  ngram_range: [1, 2]
+  # Minimum document frequency for a term to be included
+  min_df: 2
+  # Maximum document frequency (fraction) for a term to be included
+  max_df: 0.95
+  # Whether to use sublinear TF scaling (log(1 + tf))
+  sublinear_tf: true
+  # Use binary term presence instead of frequency
+  binary: false
+
+# ─── Similarity Scoring ───────────────────────────────────────────────────────
+similarity:
+  # Metric for computing similarity: "cosine" only for now
+  metric: "cosine"
+  # Score thresholds for display categories
+  thresholds:
+    excellent: 0.80   # >= 80% → Excellent match
+    good: 0.65        # >= 65% → Good match
+    fair: 0.50        # >= 50% → Fair match
+    poor: 0.00        # < 50%  → Poor match
+
+# ─── ML Classifier ────────────────────────────────────────────────────────────
+model:
+  # Algorithm: "logistic_regression" | "random_forest" | "svm"
+  algorithm: "logistic_regression"
+  # Probability threshold for positive (Suitable) prediction
+  classification_threshold: 0.60
+  # Whether to use a pre-trained model or retrain
+  use_pretrained: true
+  # Paths (relative to project root)
+  classifier_path: "models/trained/classifier.joblib"
+  vectorizer_path: "models/vectorizers/tfidf_vectorizer.joblib"
+
+# ─── Training ─────────────────────────────────────────────────────────────────
+training:
+  test_size: 0.20
+  random_state: 42
+  cross_validation_folds: 5
+  dataset_path: "datasets/processed/processed_resumes.csv"
+  # Hyperparameters for logistic regression
+  logistic_regression:
+    C: 1.0
+    max_iter: 1000
+    solver: "lbfgs"
+  # Hyperparameters for random forest
+  random_forest:
+    n_estimators: 100
+    max_depth: 10
+    random_state: 42
+
+# ─── Evaluation ───────────────────────────────────────────────────────────────
+evaluation:
+  metrics:
+    - accuracy
+    - precision
+    - recall
+    - f1
+    - roc_auc
+  # Number of top keywords for gap analysis
+  top_keywords: 20
+  report_output_dir: "outputs/evaluation/"
+
+# ─── Logging ──────────────────────────────────────────────────────────────────
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)-8s | %(name)s | %(message)s"
+  datefmt: "%Y-%m-%d %H:%M:%S"
+  file: "logs/app.log"
+  max_bytes: 10485760  # 10 MB
+  backup_count: 5

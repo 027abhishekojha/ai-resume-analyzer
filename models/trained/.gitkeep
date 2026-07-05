@@ -1,0 +1,4 @@
+This directory stores trained scikit-learn classifiers serialized with Joblib.
+
+Files tracked here (*.joblib) are excluded from Git via .gitignore.
+Train the model first: python scripts/train_model.py

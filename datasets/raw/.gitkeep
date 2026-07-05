@@ -1,0 +1,3 @@
+Raw, unprocessed dataset files go here.
+CSV, JSON, and Parquet files are excluded from Git via .gitignore.
+Run: python scripts/download_dataset.py

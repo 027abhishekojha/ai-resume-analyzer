@@ -1,0 +1,4 @@
+This directory stores fitted TF-IDF vectorizers serialized with Joblib.
+
+Files tracked here (*.joblib) are excluded from Git via .gitignore.
+Train the model first: python scripts/train_model.py
