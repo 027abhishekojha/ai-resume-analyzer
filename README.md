@@ -78,7 +78,7 @@ Over **75% of resumes** are rejected by ATS before a human ever reads them — o
 
 ## 🎬 Demo
 
-> 🚧 **Live Demo:** *Coming Soon — deployment in progress*
+> 🚧 **Live Demo:** *https://ai-ats-resume-analyzerr.streamlit.app/s*
 
 ```
 📌 Placeholder: Add a GIF/screenshot of the application here.
